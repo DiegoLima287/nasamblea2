@@ -7,6 +7,9 @@ public class ParcelStatusResponse {
     @JsonProperty("parcel_id")
     private String parcelId;
 
+    @JsonProperty("status_code")
+    private String statusCode;
+
     @JsonProperty("estado_parcela")
     private String estadoParcela; // "Riesgo de Anegamiento", "Riego Urgente", "Estrés Hídrico Leve", "Óptimo"
 
@@ -31,15 +34,26 @@ public class ParcelStatusResponse {
     @JsonProperty("irrigation_depth_mm")
     private double irrigationDepthMm;
 
+    @JsonProperty("irrigation_time_minutes")
+    private int irrigationTimeMinutes;
+
+    @JsonProperty("recommended_schedule")
+    private String recommendedSchedule;
+
     @JsonProperty("alerta_inundacion_gamc")
     private boolean alertaInundacionGamc;
 
     @JsonProperty("warning_message")
     private String warningMessage;
 
+    @JsonProperty("timestamp")
+    private String timestamp;
+
     // Getters y Setters
     public String getParcelId() { return parcelId; }
     public void setParcelId(String parcelId) { this.parcelId = parcelId; }
+    public String getStatusCode() { return statusCode; }
+    public void setStatusCode(String statusCode) { this.statusCode = statusCode; }
     public String getEstadoParcela() { return estadoParcela; }
     public void setEstadoParcela(String estadoParcela) { this.estadoParcela = estadoParcela; }
     public String getSemaphoreColor() { return semaphoreColor; }
@@ -56,8 +70,14 @@ public class ParcelStatusResponse {
     public void setEtcCultivoMmDia(double etcCultivoMmDia) { this.etcCultivoMmDia = etcCultivoMmDia; }
     public double getIrrigationDepthMm() { return irrigationDepthMm; }
     public void setIrrigationDepthMm(double irrigationDepthMm) { this.irrigationDepthMm = irrigationDepthMm; }
+    public int getIrrigationTimeMinutes() { return irrigationTimeMinutes; }
+    public void setIrrigationTimeMinutes(int irrigationTimeMinutes) { this.irrigationTimeMinutes = irrigationTimeMinutes; }
+    public String getRecommendedSchedule() { return recommendedSchedule; }
+    public void setRecommendedSchedule(String recommendedSchedule) { this.recommendedSchedule = recommendedSchedule; }
     public boolean isAlertaInundacionGamc() { return alertaInundacionGamc; }
     public void setAlertaInundacionGamc(boolean alertaInundacionGamc) { this.alertaInundacionGamc = alertaInundacionGamc; }
     public String getWarningMessage() { return warningMessage; }
     public void setWarningMessage(String warningMessage) { this.warningMessage = warningMessage; }
+    public String getTimestamp() { return timestamp; }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 }

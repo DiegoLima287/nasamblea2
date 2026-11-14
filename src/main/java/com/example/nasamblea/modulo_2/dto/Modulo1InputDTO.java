@@ -1,23 +1,40 @@
 package com.example.nasamblea.modulo_2.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Modulo1InputDTO {
+    @JsonProperty("parcel_id")
     private String parcelId;
+    @JsonProperty("latitude")
     private double latitude;
+    @JsonProperty("longitude")
     private double longitude;
+    @JsonProperty("timestamp")
     private String timestamp;
-    private String cultivo;           // "maiz", "alfalfa", "hortalizas"
-    private String etapaFenologica;   // "inicial", "desarrollo", "mediados", "madurez"
-    private double capacidadCampoMm;  // Ej. 120.0 mm por defecto
+    @JsonProperty("cultivo")
+    private String cultivo;
+    @JsonProperty("etapa_fenologica")
+    private String etapaFenologica;
+    @JsonProperty("capacidad_campo_mm")
+    private double capacidadCampoMm;
+    @JsonProperty("riego_aplicado_mm")
     private double riegoAplicadoMm;
 
     // Datos Satelitales y Pronóstico
-    private double smapRootzoneMoisturePct; // Humedad inicial (%)
-    private double gpmPrecip24hMm;          // Lluvia últimas 24h (mm)
-    private double tMax;                    // Temperatura máxima (°C)
-    private double tMin;                    // Temperatura mínima (°C)
-    private double precip72hAccumMm;        // Pronóstico lluvia 72h (mm)
-    private double precipTotalForecastMm;   // Pronóstico total 7-14 días (mm)
-    private boolean enZonaDrenaje;          // Capa GIS: Drenaje e Influencia
+    @JsonProperty("smap_rootzone_moisture_pct")
+    private double smapRootzoneMoisturePct;
+    @JsonProperty("gpm_precip_24h_mm")
+    private double gpmPrecip24hMm;
+    @JsonProperty("t_max")
+    private double tMax;
+    @JsonProperty("t_min")
+    private double tMin;
+    @JsonProperty("precip_72h_accum_mm")
+    private double precip72hAccumMm;
+    @JsonProperty("precip_total_forecast_mm")
+    private double precipTotalForecastMm;
+    @JsonProperty("en_zona_drenaje")
+    private boolean enZonaDrenaje;
 
     // Getters y Setters
     public String getParcelId() { return parcelId; }

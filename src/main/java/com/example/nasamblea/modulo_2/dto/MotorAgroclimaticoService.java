@@ -106,14 +106,18 @@ public class MotorAgroclimaticoService {
         response.setEt0MmDia(et0);
         response.setKcAplicado(kc);
         response.setEtcCultivoMmDia(etcDiaria);
+        response.setTimestamp(input.getTimestamp());
 
         // Regla 1: Riesgo de Anegamiento (> 90% humedad y lluvia prevista >= 15 mm)
         if (humedadBalancePct > 90.0 && (lluvia72h >= 15.0 || input.getPrecipTotalForecastMm() >= 30.0)) {
             response.setEstadoParcela("Riesgo de Anegamiento");
+            response.setStatusCode("FLOODING_RISK");
             response.setSemaphoreColor("BLUE");
             response.setPumpAction("LOW");
             response.setAlertaInundacionGamc(true);
             response.setIrrigationDepthMm(0.0);
+            response.setIrrigationTimeMinutes(0);
+            response.setRecommendedSchedule("Cerrar compuertas y vigilar desborde");
             response.setWarningMessage(String.format(
                 "ALERTA DE ANEGAMIENTO: Suelo saturado (%.1f%%) y pronóstico de %.1f mm de lluvia. Cerrar compuertas.",
                 humedadBalancePct, lluvia72h
@@ -123,10 +127,13 @@ public class MotorAgroclimaticoService {
         else if (humedadBalancePct < 40.0) {
             if (lluvia72h >= 12.0) {
                 response.setEstadoParcela("Estrés Hídrico Leve");
+                response.setStatusCode("LIGHT_WATER_STRESS");
                 response.setSemaphoreColor("YELLOW");
                 response.setPumpAction("LOW");
                 response.setAlertaInundacionGamc(false);
                 response.setIrrigationDepthMm(0.0);
+                response.setIrrigationTimeMinutes(0);
+                response.setRecommendedSchedule("Monitorear infiltración y esperar precipitación");
                 response.setWarningMessage(String.format(
                     "Humedad baja (%.1f%%), pero se esperan %.1f mm de lluvia en 72h. Esperar precipitación.",
                     humedadBalancePct, lluvia72h
@@ -134,10 +141,13 @@ public class MotorAgroclimaticoService {
             } else {
                 double laminaNecesaria = Math.round(((0.75 * ccMm) - swActual) * 10.0) / 10.0;
                 response.setEstadoParcela("Riego Urgente");
+                response.setStatusCode("URGENT_IRRIGATION");
                 response.setSemaphoreColor("RED");
                 response.setPumpAction("HIGH"); // Ordena encender bomba en ESP32
                 response.setAlertaInundacionGamc(false);
                 response.setIrrigationDepthMm(Math.max(0.0, laminaNecesaria));
+                response.setIrrigationTimeMinutes((int) Math.max(0, Math.round(laminaNecesaria / 0.3)));
+                response.setRecommendedSchedule("18:00 - 19:00");
                 response.setWarningMessage(String.format(
                     "RIEGO URGENTE: Humedad crítica (%.1f%%) en %s. Aplicar lámina de %.1f mm.",
                     humedadBalancePct, input.getCultivo(), laminaNecesaria
@@ -148,10 +158,13 @@ public class MotorAgroclimaticoService {
         else if (humedadBalancePct <= 55.0) {
             double laminaPreventiva = Math.round(((0.75 * ccMm) - swActual) * 10.0) / 10.0;
             response.setEstadoParcela("Estrés Hídrico Leve");
+            response.setStatusCode("LIGHT_WATER_STRESS");
             response.setSemaphoreColor("YELLOW");
             response.setPumpAction("LOW");
             response.setAlertaInundacionGamc(false);
             response.setIrrigationDepthMm(Math.max(0.0, laminaPreventiva));
+            response.setIrrigationTimeMinutes((int) Math.max(0, Math.round(laminaPreventiva / 0.3)));
+            response.setRecommendedSchedule("Programar riego preventivo en horario temprano");
             response.setWarningMessage(String.format(
                 "Precaución: Humedad descendiendo (%.1f%%). Programar riego preventivo de %.1f mm.",
                 humedadBalancePct, laminaPreventiva
@@ -160,10 +173,13 @@ public class MotorAgroclimaticoService {
         // Regla 4: Óptimo (55% a 90%)
         else {
             response.setEstadoParcela("Óptimo");
+            response.setStatusCode("OPTIMAL");
             response.setSemaphoreColor("GREEN");
             response.setPumpAction("LOW");
             response.setAlertaInundacionGamc(false);
             response.setIrrigationDepthMm(0.0);
+            response.setIrrigationTimeMinutes(0);
+            response.setRecommendedSchedule("Monitoreo rutinario sin intervención");
             response.setWarningMessage("Humedad óptima en zona radicular. No se requiere riego hoy.");
         }
 
