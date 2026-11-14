@@ -1,0 +1,222 @@
+:root {
+    --app-ink: #1d3129;
+    --app-muted: #65756e;
+    --app-green: #17684d;
+    --app-green-dark: #104c39;
+    --app-surface: #ffffff;
+    --app-background: #f4f7f5;
+    --app-border: #dce5df;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--app-ink);
+    background: var(--app-background);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.app-navbar {
+    min-height: 4.5rem;
+    background: var(--app-surface);
+    border-bottom: 1px solid var(--app-border);
+}
+
+.app-brand {
+    color: var(--app-green-dark);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+}
+
+.app-navbar .nav-link {
+    padding: 0.6rem 0.9rem;
+    color: var(--app-muted);
+    font-weight: 600;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+    color: var(--app-green);
+}
+
+.page-content {
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+    padding-bottom: 4rem;
+    animation: page-enter 450ms ease-out both;
+}
+
+.page-heading {
+    max-width: 46rem;
+    margin-bottom: 2rem;
+}
+
+.eyebrow {
+    margin-bottom: 0.55rem;
+    color: var(--app-green);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--app-ink);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+.page-heading h1 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.page-intro {
+    margin-bottom: 0;
+    color: var(--app-muted);
+    font-size: 1.05rem;
+}
+
+.empty-panel,
+.content-panel {
+    border: 1px solid var(--app-border);
+    border-radius: 1rem;
+    background: var(--app-surface);
+    box-shadow: 0 0.75rem 2rem rgb(24 54 39 / 5%);
+    animation: page-enter 550ms ease-out both;
+}
+
+.empty-panel {
+    display: flex;
+    min-height: 19rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+}
+
+.empty-icon {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 1rem;
+    color: var(--app-green);
+    background: #eaf4ee;
+}
+
+.empty-icon svg {
+    width: 1.8rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.empty-panel h2 {
+    margin: 1.25rem 0 0.55rem;
+    font-size: 1.3rem;
+}
+
+.empty-panel p,
+.map-placeholder p,
+.alert-empty p {
+    max-width: 32rem;
+    margin: 0;
+    color: var(--app-muted);
+    line-height: 1.65;
+}
+
+.content-panel {
+    padding: 1.5rem;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.panel-heading .eyebrow {
+    margin-bottom: 0.35rem;
+}
+
+.panel-heading h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+}
+
+.map-placeholder {
+    display: flex;
+    min-height: 17rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px dashed #c5d5ca;
+    border-radius: 0.8rem;
+    background:
+        linear-gradient(135deg, rgb(234 244 238 / 65%) 25%, transparent 25%) 0 0 / 2rem 2rem,
+        linear-gradient(315deg, rgb(234 244 238 / 65%) 25%, transparent 25%) 0 0 / 2rem 2rem,
+        #f8fbf9;
+    text-align: center;
+}
+
+.alert-empty {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.15rem;
+    border: 1px solid var(--app-border);
+    border-radius: 0.8rem;
+    background: #f8fbf9;
+}
+
+.alert-empty-mark {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--app-green-dark);
+    background: #e3f0e8;
+    font-weight: 750;
+}
+
+.alert-empty h3 {
+    margin: 0.1rem 0 0.35rem;
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .app-navbar .navbar-collapse.show {
+        padding: 0.5rem 0 0.75rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
